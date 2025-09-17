@@ -1,0 +1,62 @@
+#include <stdio.h>
+#include <string.h>
+
+struct {
+    char dname[10], fname[10][10];
+    int fcount;
+} dir[10];
+
+int main() {
+    int dcount = 0, ch, i, j;
+    char d[10], f[10];
+
+    while (1) {
+        printf("\n1. Create Directory\n2. Create File\n3. Search File\n4. List\n5. Exit\nEnter choice: ");
+        scanf("%d", &ch);
+
+        switch (ch) {
+            case 1:
+                printf("Enter directory name: ");
+                scanf("%s", dir[dcount].dname);
+                dir[dcount].fcount = 0;
+                dcount++;
+                break;
+            case 2:
+                printf("Enter directory name: ");
+                scanf("%s", d);
+                for (i = 0; i < dcount; i++) {
+                    if (strcmp(d, dir[i].dname) == 0) {
+                        printf("Enter file name: ");
+                        scanf("%s", dir[i].fname[dir[i].fcount]);
+                        dir[i].fcount++;
+                        break;
+                    }
+                }
+                if (i == dcount) printf("Directory not found!\n");
+                break;
+            case 3:
+                printf("Enter file name: ");
+                scanf("%s", f);
+                for (i = 0; i < dcount; i++) {
+                    for (j = 0; j < dir[i].fcount; j++) {
+                        if (strcmp(f, dir[i].fname[j]) == 0) {
+                            printf("File found in directory %s\n", dir[i].dname);
+                            goto endSearch;
+                        }
+                    }
+                }
+                printf("File not found!\n");
+                endSearch:
+                break;
+            case 4:
+                for (i = 0; i < dcount; i++) {
+                    printf("\nDirectory %s:\n", dir[i].dname);
+                    for (j = 0; j < dir[i].fcount; j++)
+                        printf("  %s\n", dir[i].fname[j]);
+                }
+                break;
+            case 5:
+                return 0;
+        }
+    }
+}
