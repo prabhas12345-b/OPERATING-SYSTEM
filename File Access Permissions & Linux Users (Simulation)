@@ -1,0 +1,24 @@
+#include <stdio.h>
+
+int main() {
+    int choice;
+
+    printf("Linux File Permissions Simulation\n");
+    while (1) {
+        printf("\n1. Show Permission Types\n2. Show User Types\n3. Exit\nEnter choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("\nFile Permissions:\n");
+                printf(" r = Read\n w = Write\n x = Execute\n");
+                break;
+            case 2:
+                printf("\nUser Types:\n");
+                printf(" Owner (u)\n Group (g)\n Others (o)\n");
+                break;
+            case 3:
+                return 0;
+        }
+    }
+}
