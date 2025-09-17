@@ -1,0 +1,23 @@
+#include <stdio.h>
+#include <dirent.h>
+
+int main() {
+    DIR *d;
+    struct dirent *dir;
+    char path[100];
+
+    printf("Enter directory path (e.g. . for current): ");
+    scanf("%s", path);
+
+    d = opendir(path);
+    if (d) {
+        printf("Files in %s:\n", path);
+        while ((dir = readdir(d)) != NULL) {
+            printf("%s\n", dir->d_name);
+        }
+        closedir(d);
+    } else {
+        printf("Directory not found!\n");
+    }
+    return 0;
+}
