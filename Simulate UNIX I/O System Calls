@@ -1,0 +1,45 @@
+#include <stdio.h>
+#include <stdlib.h>
+int main() {
+    FILE *fp;
+    char fname[50], buffer[100];
+    int choice;
+    while (1) {
+        printf("\n1. Open and Write File\n2. Seek in File\n3. File Info (Stat)\n4. Exit\nEnter choice: ");
+        scanf("%d", &choice);
+        switch (choice) {
+            case 1:
+                printf("Enter filename: ");
+                scanf("%s", fname);
+                fp = fopen(fname, "w+");
+                if (!fp) { printf("Cannot open file!\n"); break; }
+                printf("Enter text: ");
+                fflush(stdin);
+                gets(buffer);
+                fputs(buffer, fp);
+                fclose(fp);
+                break;
+            case 2:
+                printf("Enter filename: ");
+                scanf("%s", fname);
+                fp = fopen(fname, "r");
+                if (!fp) { printf("File not found!\n"); break; }
+                fseek(fp, 5, SEEK_SET); // simulate lseek
+                fgets(buffer, 100, fp);
+                printf("After seeking 5 chars: %s\n", buffer);
+                fclose(fp);
+                break;
+            case 3:
+                printf("Enter filename: ");
+                scanf("%s", fname);
+                fp = fopen(fname, "r");
+                if (!fp) { printf("File not found!\n"); break; }
+                fseek(fp, 0, SEEK_END);
+                long size = ftell(fp);
+                printf("File size: %ld bytes\n", size);
+                fclose(fp);
+                break;
+            case 4: exit(0);
+        }
+    }
+}
