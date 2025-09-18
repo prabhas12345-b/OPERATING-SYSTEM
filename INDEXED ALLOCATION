@@ -1,0 +1,40 @@
+#include <stdio.h>
+
+int main() {
+    int f[50], index[50], i, j, n, m, c;
+
+    for(i=0;i<50;i++)
+        f[i] = 0;
+
+    printf("Enter index block: ");
+    scanf("%d",&m);
+
+    if(f[m] == 1) {
+        printf("Block already allocated.\n");
+        return 0;
+    }
+
+    f[m] = 1;
+    printf("Enter number of blocks needed: ");
+    scanf("%d",&n);
+
+    printf("Enter block numbers into index block:\n");
+    for(i=0;i<n;i++) {
+        scanf("%d",&index[i]);
+        if(f[index[i]] == 0)
+            f[index[i]] = 1;
+        else {
+            printf("Block %d already allocated. Enter another.\n", index[i]);
+            i--;
+        }
+    }
+
+    printf("\nFile allocated with index block %d\n", m);
+    printf("Blocks linked:\n");
+    printf("%d -> ", m);
+    for(i=0;i<n;i++)
+        printf("%d ", index[i]);
+    printf("\n");
+
+    return 0;
+}
