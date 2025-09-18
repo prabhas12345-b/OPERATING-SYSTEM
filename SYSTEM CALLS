@@ -1,0 +1,28 @@
+#include <stdio.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+
+int main() {
+    int fd;
+    char buffer[50];
+    fd = open("example.txt", O_CREAT | O_RDWR, 0644);
+    if (fd < 0) {
+        perror("open");
+        return 1;
+    }
+    write(fd, "Hello System Call\n", 18);
+    lseek(fd, 0, SEEK_SET);
+    read(fd, buffer, sizeof(buffer));
+    printf("File Content: %s\n", buffer);
+    close(fd);
+    pid_t pid = fork();
+    if (pid == 0) {
+        printf("Child Process (PID: %d, PPID: %d)\n", getpid(), getppid());
+    } else {
+        wait(NULL);
+        printf("Parent Process (PID: %d)\n", getpid());
+    }
+    return 0;
+}
