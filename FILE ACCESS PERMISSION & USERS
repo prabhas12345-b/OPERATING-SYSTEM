@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <io.h>
+
+int main() {
+    char filename[50];
+    printf("Enter filename: ");
+    scanf("%s", filename);
+
+    if(access(filename, 0) == 0)
+        printf("File exists.\n");
+    else
+        printf("File does not exist.\n");
+
+    if(access(filename, 2) == 0)
+        printf("Write permission: Yes\n");
+    else
+        printf("Write permission: No\n");
+
+    if(access(filename, 4) == 0)
+        printf("Read permission: Yes\n");
+    else
+        printf("Read permission: No\n");
+
+    return 0;
+}
